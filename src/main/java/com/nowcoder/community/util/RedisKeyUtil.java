@@ -26,13 +26,17 @@ public class RedisKeyUtil {
         return PREFIX_USER_LIKE + SPLIT + userId;
     }
 
-    // 某个用户关注的实体
+    /**
+     * 若 A关注了B，则A是B的Follower（粉丝），B是A的Followee（目标）。
+     * 关注的目标可以是用户、帖子、题目等，在实现时将这些目标抽象为实体
+     */
+    // 某个用户(userId)关注的实体(entityId)
     // followee:userId:entityType -> zset(entityId,now)
     public static String getFolloweeKey(int userId, int entityType) {
         return PREFIX_FOLLOWEE + SPLIT + userId + SPLIT + entityType;
     }
 
-    // 某个实体拥有的粉丝
+    // 某个实体(entityId)拥有的粉丝(userId)
     // follower:entityType:entityId -> zset(userId,now)
     public static String getFollowerKey(int entityType, int entityId) {
         return PREFIX_FOLLOWER + SPLIT + entityType + SPLIT + entityId;

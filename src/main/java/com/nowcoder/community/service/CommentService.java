@@ -39,7 +39,7 @@ public class CommentService implements CommunityConstant {
             throw new IllegalArgumentException("参数不能为空!");
         }
 
-        // 添加评论
+        // 添加评论，需要敏感词过滤，html非法标签过滤
         comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
         comment.setContent(sensitiveFilter.filter(comment.getContent()));
         int rows = commentMapper.insertComment(comment);
